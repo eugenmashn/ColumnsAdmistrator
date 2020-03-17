@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Date.Repository
 {
-    class EFGenericRepository<TEntity> : IEFGenericRepository<TEntity> where TEntity : class
+  public  class EFGenericRepository<TEntity> : IEFGenericRepository<TEntity> where TEntity : class
     {
         private readonly ApplicationContext _context;
         DbSet<TEntity> _dbSet;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Date.Repository
 {
-    interface IEFGenericRepository<TEntity> where TEntity : class
+   public interface IEFGenericRepository<TEntity> where TEntity : class
     {
         void Create(TEntity item);
 

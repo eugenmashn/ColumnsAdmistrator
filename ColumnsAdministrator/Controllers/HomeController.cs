@@ -8,21 +8,29 @@ using Microsoft.Extensions.Logging;
 using ColumnsAdministrator.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using Date.Repository;
+using Date.Models;
 
 namespace ColumnsAdministrator.Controllers
 {
     public class HomeController : Controller
     {
+        public IEFGenericRepository<ProductModels> Productsrepozitory { get; set; }
+        public HomeController( IEFGenericRepository<ProductModels> products) 
+        {
+            Productsrepozitory = products;
+        }
         [Authorize(Roles = "admin, user")]
         public IActionResult Index()
         {
             string role = User.FindFirst(x => x.Type == ClaimsIdentity.DefaultRoleClaimType).Value;
-            return Content($"ваша роль: {role}");
+            return RedirectToAction("Product");
         }
         [Authorize(Roles = "admin")]
-        public IActionResult About()
+        public IActionResult Product()
         {
-            return Content("Вход только для администратора");
+            ViewBag.products = Productsrepozitory.Get();
+            return View();
         }
     }
 }
